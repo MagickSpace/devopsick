@@ -1,0 +1,35 @@
+---
+import BlogHeader from '@/components/blog-header.astro'
+import BlogCard from '@/components/cards/blog-card.astro'
+import Layout from '@/layouts/Layout.astro'
+import { getBlogPosts } from '@/content/config'
+const { lang } = Astro.params
+
+const posts = (await getBlogPosts())
+  ?.filter((blog) => {
+    return blog?.data?.lang === lang
+  })
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+
+export async function getStaticPaths() {
+  return ['uk', 'ru', 'en'].map((lang) => {
+    return { params: { lang } }
+  })
+}
+
+const page = Astro.props
+
+export const prerender = true
+---
+
+<Layout title="Blog" description="Blog" lang={lang}>
+  <section class="container py-10">
+    <BlogHeader title="Blog" />
+
+    <div
+      class="grid grid-cols-1 gap-x-6 gap-y-9 md:grid-cols-2 md:gap-y-11 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16"
+    >
+      {posts.map((post) => <BlogCard {...post} />)}
+    </div>
+  </section>
+</Layout>

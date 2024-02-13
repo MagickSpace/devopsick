@@ -1,0 +1,50 @@
+---
+import BlogHeader from '@/components/blog-header.astro'
+import BlogCard from '@/components/cards/blog-card.astro'
+import Layout from '@/layouts/Layout.astro'
+import { getBlogPosts } from '@/content/config'
+import { capitalizer } from '@/lib/utils'
+import { getCollection } from 'astro:content'
+
+const { category, lang } = Astro.params
+
+if (!category || !lang) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found',
+  })
+}
+
+const posts = (await getBlogPosts())
+  ?.filter((blog) => {
+    return blog?.data?.lang === lang && blog?.data?.category === category
+  })
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog')
+  const paths = posts.map((post) => ({
+    params: { category: post?.data.category, lang: post?.data.lang || 'uk' },
+  }))
+
+  return paths
+}
+
+export const prerender = true
+---
+
+<Layout
+  title={`${capitalizer(category)} | Blog`}
+  description={`All posts for ${category} category`}
+  lang={lang}
+>
+  <section class="container py-10">
+    <BlogHeader title={`Posts by ${category} category`} />
+
+    <div
+      class="grid grid-cols-1 gap-x-6 gap-y-9 md:grid-cols-2 md:gap-y-16 lg:grid-cols-3 lg:gap-x-8"
+    >
+      {posts.map((post) => <BlogCard {...post} />)}
+    </div>
+  </section>
+</Layout>

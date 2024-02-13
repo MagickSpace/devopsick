@@ -1,0 +1,65 @@
+---
+interface Props {
+  size?: 'md' | 'lg'
+  block?: boolean
+  style?: 'outline' | 'primary' | 'inverted'
+  class?: string
+  [x: string]: any
+}
+
+const {
+  size = 'md',
+  style = 'primary',
+  block,
+  class: className,
+  ...rest
+} = Astro.props
+
+const sizes = {
+  md: 'px-5 py-2.5',
+  lg: 'px-6 py-3',
+}
+
+const styles = {
+  outline: 'border-2 border-black hover:bg-black text-black hover:text-white',
+  primary:
+    'bg-black text-white hover:bg-slate-900  border-2 border-transparent',
+  inverted: 'shadow__btn',
+}
+---
+
+<button
+  {...rest}
+  class:list={[
+    'rounded text-center ring-gray-200 ring-offset-2 transition focus-visible:ring-2',
+    block && 'w-full',
+    sizes[size],
+    styles[style],
+    className,
+  ]}
+  ><slot />
+</button>
+
+<style>
+  .shadow__btn {
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    border-radius: 7px;
+    transition: 0.5s;
+    transition-property: box-shadow;
+  }
+
+  .shadow__btn {
+    background: rgb(0, 236, 232);
+    box-shadow: 0 0 25px rgb(0, 236, 232);
+  }
+
+  .shadow__btn:hover {
+    box-shadow:
+      0 0 5px rgb(0, 236, 232),
+      0 0 25px rgb(0, 236, 232),
+      0 0 50px rgb(0, 236, 232),
+      0 0 100px rgb(0, 236, 232);
+  }
+</style>

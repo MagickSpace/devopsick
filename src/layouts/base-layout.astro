@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import BaseHead from '@/components/layout/base-head.astro'
+import TailwindIndicator from '@/components/tailwind-indicator.astro'
+import { cn } from '@/lib/utils'
+import { useTranslations, type UiType } from '@/i18n/utils'
+type Props = CollectionEntry<'blog'>['data']
+
+const { title, description, bodyClass, lang } = Astro.props
+const t = useTranslations(lang as UiType)
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <BaseHead lang={lang} title={title} description={description} />
+  </head>
+  <body class={cn('flex flex-col min-h-screen', bodyClass)}>
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-T7CDGRPZ"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
+    <slot />
+    <TailwindIndicator />
+  </body>
+</html>

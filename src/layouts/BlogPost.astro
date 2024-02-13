@@ -1,0 +1,80 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import FormattedDate from '@/components/FormattedDate.astro'
+import Layout from './Layout.astro'
+import { Icon } from 'astro-icon'
+import { Image } from 'astro:assets'
+import { Badge } from '@/components/ui/badge'
+import { buttonVariants } from '@/components/ui/button'
+import { cn, formatDate } from '@/lib/utils'
+
+type Props = CollectionEntry<'blog'>['data']
+
+const slug = Astro.props.slug
+
+const { title, description, pubDate, updatedDate, heroImage, category, lang } =
+  Astro.props
+---
+
+<Layout
+  title={title}
+  description={description}
+  heroImage={heroImage}
+  pubDate={pubDate}
+  updatedDate={updatedDate}
+  lang={lang}
+>
+  <div class="container relative max-w-screen-md py-10">
+    <a
+      href={`/${lang}/blog`}
+      class={cn(
+        buttonVariants({ variant: 'ghost' }),
+        'absolute left-[-200px] top-10 hidden xl:inline-flex text-muted-foreground',
+      )}
+      transition:animate="slide"
+    >
+      <Icon name="lucide:chevron-left" class="mr-2 h-4 w-4" />
+      See all posts
+    </a>
+    <article class="prose max-w-none dark:prose-invert">
+      <a href={`/${lang}/blog/category/${category}`}>
+        <Badge
+          radius="md"
+          className="capitalize"
+          transition:name={'category-' + slug}
+        >
+          {category}
+        </Badge>
+      </a>
+      <div class="hero-image">
+        <Image
+          class="my-6 overflow-hidden rounded-xl"
+          width={1020}
+          height={510}
+          src={heroImage}
+          alt=""
+          transition:name={'img-' + slug}
+        />
+        <div class="date flex items-center justify-between">
+          <span
+            class="font-medium text-muted-foreground"
+            transition:name={'date-' + slug}
+          >
+            {formatDate(pubDate)}
+            {
+              updatedDate && (
+                <span>- Last updated on {formatDate(updatedDate)}</span>
+              )
+            }
+          </span>
+        </div>
+      </div>
+      <h1 class="my-4 font-heading text-4xl" transition:name={'title-' + slug}>
+        {title}
+      </h1>
+      <p>{description}</p>
+      <hr class="my-6" />
+      <slot />
+    </article>
+  </div>
+</Layout>

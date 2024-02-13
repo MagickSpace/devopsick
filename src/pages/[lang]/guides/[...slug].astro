@@ -1,0 +1,31 @@
+---
+import { MdxComponents } from '@/components/content/mdx-components'
+import GuidePostLayout from '@/layouts/guide-post.astro'
+import { getCollection, type CollectionEntry } from 'astro:content'
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides')
+  return guides.map((guide) => ({
+    params: { lang: guide.lang, slug: guide.slug },
+    props: guide,
+  }))
+}
+
+type Props = CollectionEntry<'guides'>
+
+const guide = Astro.props
+const { lang, slug } = Astro.params
+const { Content } = await guide.render()
+
+if (!slug || !guide || !lang) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found',
+  })
+}
+export const prerender = true
+---
+
+<GuidePostLayout {...guide}>
+  <Content components={MdxComponents} />
+</GuidePostLayout>

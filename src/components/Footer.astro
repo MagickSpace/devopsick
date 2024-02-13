@@ -1,13 +1,14 @@
 ---
-import SmallText from '@/typography/SmallText.astro'
+import SmallText from './typography/SmallText.astro'
 import { Image } from 'astro:assets'
-import { getLangFromUrl, useTranslations } from '@/i18n/utils'
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
 import favicon from '@/assets/favicon.svg'
-import FooterLinks from '@/typography/FooterLinks.astro'
-import LogoLoading from '@/typography/LogoLoading.astro'
+import FooterLinks from './typography/FooterLinks.astro'
+import LogoLoading from './typography/LogoLoading.astro'
 import '@/styles/globals.css'
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const today = new Date()
 ---
 
 <!-- Component: Five Columns Footer with Logo -->
@@ -218,7 +219,7 @@ const t = useTranslations(lang)
           aria-label="WindUI logo"
           aria-current="page"
           class="col-span-1 flex items-center gap-2 whitespace-nowrap text-base font-medium leading-6 focus:outline-none md:col-span-4 lg:col-span-6"
-          href="javascript:void(0)"
+          href="https://github.com/Frikadellios"
         >
           <svg
             width="300"
@@ -239,7 +240,7 @@ const t = useTranslations(lang)
               d="M0 0H300V300H0V0ZM150.026 150.025C121.715 99.731 88.1131 88.1122 88.1131 88.1122L10.6508 165.519C10.6508 165.519 26.143 150.027 150.026 150.027H150.027C150.026 150.027 150.026 150.027 150.026 150.027L150.026 150.027C99.731 178.339 88.1124 211.941 88.1124 211.941L165.52 289.348C165.52 289.348 150.032 273.86 150.027 150.027H150.029C178.341 200.323 211.944 211.942 211.944 211.942L289.352 134.535C289.352 134.535 273.864 150.023 150.027 150.027V150.027L150.027 150.027C200.322 121.715 211.941 88.1125 211.941 88.1125L134.534 10.651C134.534 10.651 150.026 26.1431 150.026 150.025ZM150.027 150.027L150.026 150.027C150.026 150.026 150.026 150.026 150.026 150.025C150.026 150.025 150.027 150.026 150.027 150.027ZM150.027 150.027L150.027 150.026L150.027 150.027C150.027 150.027 150.027 150.027 150.027 150.027L150.027 150.027ZM150.027 150.027C150.027 150.027 150.027 150.027 150.027 150.027H150.027L150.027 150.027Z"
               fill="rgba(255, 255, 255, .2)"></path>
           </svg>
-          Brand
+          &copy; {today.getFullYear()} DevOpSick Freelance. All rights reserved.
         </a>
         <nav
           class="col-span-3 md:col-span-4 lg:col-span-6"

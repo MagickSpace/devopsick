@@ -26,6 +26,9 @@ export default defineConfig({
       yaml(),
     ],
   },
+  prefetch: {
+    prefetchAll: true
+  },
   markdown: {
     rehypePlugins: [
       rehypeHeadingIds,

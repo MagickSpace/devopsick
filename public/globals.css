@@ -82,7 +82,7 @@
   }
 
   /* If you want a custom scrollbar - By @diomed */
-  /* * {
+  * {
     @apply border-border;
     --sb-track-color: #ffffff;
     --sb-thumb-color: #e2e3f1;
@@ -138,63 +138,58 @@
   }
 }
 
-.text-gradient_indigo-purple {
-  background: linear-gradient(90deg, #6366f1 0%, rgb(168 85 247 / 0.9) 100%);
-  /* background: linear-gradient(83.21deg,#3245ff 0%,#bc52ee 100%); */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 @layer base {
-  body {
+   body {
+    @apply bg-background text-foreground;
 		transition: background-color 0.5s ease;
 	} 
-
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  html {
-    /* scroll-padding-top: 4rem; */
-    @apply scroll-pt-16 lg:scroll-pt-0;
+ .prose code {
+     @apply text-base;
   }
 
-  .balance-text {
-    text-wrap: balance;
-  }
+@font-face {
+  font-family: Manrope;
+  src: url(../assets/fonts/Manrope-SemiBold.woff2) format('woff2');
+}
 
-  /* Documentation part */
-  .docs-grid-cols-2 {
-    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4;
-  }
+@font-face {
+  font-family: Manrope;
+  src: url(../assets/fonts/Manrope-Medium.woff2) format('woff2');
+}
 
-  .callout > * {
-    @apply my-0 !important;
-  }
-  
-  .font-icon-callout {
-    font-family: Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-  }
+@font-face {
+  font-family: Manrope;
+  src: url(../assets/fonts/Manrope-Light.woff2) format('woff2');
+}
 
-  /* MdxComponent: For <code></code> with no parent <pre></pre> */
-  :not(pre) > code {
-    @apply relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm bg-background text-foreground;
-  }
+@font-face {
+  font-family: Manrope;
+  src: url(../assets/fonts/Manrope-Regular.woff2) format('woff2');
+}
+
+/* prose styles here */
+.prose h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-zinc-800 dark:text-zinc-100   !important;
+}
 }
 
 .glass {
-  background: rgba(57, 56, 56, 0.52);
-  backdrop-filter: blur(13px) saturate(150%);
-  -webkit-backdrop-filter: blur(13px) saturate(150%);
-  z-index: -1;
+background: rgba(57, 56, 56, 0.52);
+backdrop-filter: blur(13px) saturate(150%);
+-webkit-backdrop-filter: blur(13px) saturate(150%);
+z-index: -1;
 }
 
 .shadow {
-  box-shadow: -5px 3px 8px 1px rgba(0, 0, 0, 0.12);
+box-shadow: -5px 3px 8px 1px rgba(0, 0, 0, 0.12);
 }
 
 .text-gradient_indigo-purple {

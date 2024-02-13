@@ -26,11 +26,8 @@
       "@/layouts/*": ["./src/layouts/*.astro"],
       "@/utils": ["./src/utils/index.ts"],
       "@/data/*": ["./src/data/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/typography/*": ["./src/components/typography/*"],
       "@/site-config": ["./src/data/site.config.ts"],
-      "@/styles": ["./src/styles/"],
-      "@/i18n": ["./src/i18n/"]
+      "@/styles": ["./src/styles/"]
     },
     "plugins": [
       {

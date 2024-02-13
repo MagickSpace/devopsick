@@ -14,7 +14,7 @@ const blog = defineCollection({
       draft: z.boolean().default(false),
       title: z.string(),
       description: z.string(),
-      coverImage: z.string(),
+      coverImage: z.string().optional(),
       category: z.string().optional(),
       lang: z.string().optional(),
       // Transform string to Date object

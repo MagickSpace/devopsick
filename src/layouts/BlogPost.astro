@@ -7,13 +7,16 @@ import { Image } from 'astro:assets'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
 import { cn, formatDate } from '@/lib/utils'
+import Tag from '@/components/Tag'
+import type { MarkdownHeading } from 'astro'
 
 type Props = CollectionEntry<'blog'>['data']
-
 const slug = Astro.props.slug
 
-const { title, description, pubDate, updatedDate, heroImage, category, lang } =
-  Astro.props
+
+const { data, readTime, headings, id } = Astro.props
+const { title, description, pubDate, updatedDate, heroImage, category, lang, tags } = data
+const articleDate = pubDate.toISOString()
 ---
 
 <Layout
@@ -22,6 +25,7 @@ const { title, description, pubDate, updatedDate, heroImage, category, lang } =
   heroImage={heroImage}
   pubDate={pubDate}
   updatedDate={updatedDate}
+  articleDate={articleDate}
   lang={lang}
 >
   <div class="container relative max-w-screen-md py-10">
@@ -67,6 +71,14 @@ const { title, description, pubDate, updatedDate, heroImage, category, lang } =
               )
             }
           </span>
+          <p class="text-center text-sm font-bold text-opacity-50">
+            - {readTime}
+          </p>
+          <div
+        class="flex flex-wrap items-center justify-center gap-2 gap-y-4 md:gap-5"
+      >
+        {tags.map((tag) => <Tag tag={tag} />)}
+      </div>
         </div>
       </div>
       <h1 class="my-4 font-heading text-4xl" transition:name={'title-' + slug}>
